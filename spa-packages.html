@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Spa Packages | VARSHINI BEAUTY PARLOUR CHIRALA</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+</head>
+<body>
+    <header>
+        <div class="logo">VARSHINI BEAUTY PARLOUR CHIRALA</div>
+        <ul class="nav-links">
+      <li><a href="parlourwebsite.html">Home</a></li>
+      <li class="dropdown">
+        <a class="dropdown-trigger">Services <span class="arrow">▼</span></a>
+        <ul class="dropdown-menu">
+          <li><a href="hair-styling.html">Hair Styling</a></li>
+          <li><a href="manicure-pedicure.html">Manicure & Pedicure</a></li>
+          <li><a href="facials-skincare.html">Facials & Skincare</a></li>
+          <li><a href="spa-packages.html">Spa Packages</a></li>
+          <li><a href="bridal-makeup.html">Bridal Makeup</a></li>
+          <li><a href="Marriage-makeup.html">Marriage Makeup</a></li>
+          <li><a href="engagement-makeup.html">Engagement Makeup</a></li>
+          <li><a href="party-makeup.html">Party Makeup</a></li>
+          <li><a href="birthday.html">Birthday Makeup</a></li>
+          <li><a href="photoshoot-makeup.html">Photoshoot Makeup</a></li>
+          <li><a href="mature-functions.html">Half Saree Function</a></li>
+          <li><a href="events.html">Events & Stalls</a></li>
+        </ul>
+      </li>
+      <li><a href="https://share.google/j1UJa43TyOJhqfgnO" target="_blank" rel="noopener noreferrer">Reviews</a></li>
+    </ul>
+        <button id="openBookingModal" class="btn-book">Book Now</button>
+    </header>
+
+    <section class="subpage-hero" style="background-image: url('images/spa_massage.png');">
+        <h1>Luxury Spa</h1>
+    </section>
+
+    <main class="content">
+        <section class="gallery-section fade-in-up">
+            <h2>Our Spa Portfolio</h2>
+            <p style="color: var(--text-muted); margin-bottom: 2rem;">A peaceful sanctuary of body healing and therapeutic aromatherapy</p>
+            <div class="gallery-grid">
+                <div class="gallery-item"><img src="images/spa_massage.png" alt="Spa Look 1"></div>
+                <div class="gallery-item"><img src="images/spa_stones.png" alt="Spa Look 2"></div>
+                <div class="gallery-item"><img src="images/spa_candles.png" alt="Spa Look 3"></div>
+                <div class="gallery-item"><img src="images/manicure_nails.png" alt="Spa Look 4"></div>
+            </div>
+        </section>
+
+        <div class="service-details fade-in-up">
+            <h2>Rejuvenating Spa Packages</h2>
+            <p>De-stress your body and mind with our professional therapeutic treatments. We offer deeply relaxing massages, oil wraps, skin scrubs, and tailored aromatherapies in a quiet, luxurious spa setting.</p>
+            <ul style="margin:1rem 0 2rem 0; padding-left: 1.2rem; color: var(--text-muted);">
+                <li>Deep Tissue & Swedish Body Massage</li>
+                <li>Therapeutic Aromatherapy & Hot Stone Massage</li>
+                <li>Detoxifying Body Scrubs & Oil Wraps</li>
+                <li>Customized Pre-Bridal Pamper Packages</li>
+            </ul>
+
+            <form id="spaPageForm" action="https://hook.eu1.make.com/vsws8u75gg2c3345kpa3mipmmzl6y8ot" method="POST">
+                <input name="name" type="text" placeholder="Your Name" required />
+                <input name="email" type="email" placeholder="Email Address" required />
+                <input name="phone" type="tel" placeholder="Phone Number" required />
+                
+                <div style="display: flex; gap: 10px;">
+                    <input name="date" type="date" required style="flex: 1;" />
+                    <input name="time" type="time" required style="flex: 1;" />
+                </div>
+
+                <input type="hidden" name="service" value="Spa Packages">
+
+                <textarea name="message" rows="4" placeholder="Mention any specific package requests, body pain, or massage choices..."></textarea>
+                
+                <button type="submit">Request Appointment</button>
+            </form>
+        </div>
+    </main>
+
+    <footer>
+        &copy; 2026 VARSHINI BEAUTY PARLOUR CHIRALA | <a href="parlourwebsite.html">Back to home</a>
+    </footer>
+
+    <!-- Booking Modal -->
+    <div id="bookingModalBackdrop" class="modal-backdrop">
+      <div class="modal">
+        <div class="modal-header">
+          <h3 class="modal-title">Book with VARSHINI BEAUTY PARLOUR CHIRALA</h3>
+          <button class="modal-close" id="modalCloseBtn">&times;</button>
+        </div>
+        <div class="modal-grid">
+          <a class="book-option" href="tel:+919703384758">
+            <div class="icon icon-call">📞</div>
+            <div class="option-body">
+                <strong>Call Now</strong>
+                <span class="small">+91 97033 84758</span>
+            </div>
+          </a>
+          <a class="book-option" target="_blank" href="https://wa.me/919703384758?text=Hi! I want to book a Spa session.">
+            <div class="icon icon-whatsapp">💬</div>
+            <div class="option-body">
+                <strong>WhatsApp</strong>
+                <span class="small">Chat & share photos</span>
+            </div>
+          </a>
+          <a class="book-option" target="_blank" href="https://www.instagram.com/ranjithamajeti_?igsh=MXJxa2d5NXhjMjUxcQ==">
+            <div class="icon icon-instagram">📸</div>
+            <div class="option-body">
+                <strong>Instagram</strong>
+                <span class="small">DM our portfolio</span>
+            </div>
+          </a>
+          <a class="book-option" href="mailto:majetiranjitha@gmail.com">
+            <div class="icon icon-email">✉️</div>
+            <div class="option-body">
+                <strong>Email</strong>
+                <span class="small">Send detailed requests</span>
+            </div>
+          </a>
+          <a class="book-option" target="_blank" href="https://youtube.com/@chiralamakeupartist?si=A1fp4ObJGxCZFMre">
+            <div class="icon icon-youtube">▶️</div>
+            <div class="option-body">
+                <strong>YouTube</strong>
+                <span class="small">Watch our process</span>
+            </div>
+          </a>
+          <a class="book-option" target="_blank" href="https://share.google/j1UJa43TyOJhqfgnO" rel="noopener noreferrer">
+            <div class="icon" style="background: #4285F4;">⭐</div>
+            <div class="option-body">
+                <strong>Google Review</strong>
+                <span class="small">Rate us 5-stars on Google Maps</span>
+            </div>
+          </a>
+          <div id="openInlineForm" class="book-option" style="cursor: pointer;">
+            <div class="icon icon-form" style="background: #f6ad55;">📝</div>
+            <div class="option-body">
+                <strong>Request Form</strong>
+                <span class="small">Fill details below</span>
+            </div>
+          </div>
+        </div>
+
+        <div id="modalFormWrap" class="modal-form">
+          <form id="modalBookingForm" action="https://hook.eu1.make.com/vsws8u75gg2c3345kpa3mipmmzl6y8ot" method="POST">
+            <input name="name" type="text" placeholder="Your Name" required />
+            <input name="phone" type="tel" placeholder="Phone Number" required />
+            <input name="email" type="email" placeholder="Email" required />
+            <input name="date" type="date" required />
+            <input name="time" type="time" required />
+            <input name="service" type="hidden" value="Spa Packages">
+            <textarea name="message" rows="3" placeholder="Additional details"></textarea>
+            <button type="submit">Submit Request</button>
+          </form>
+          <div id="modalFormMsg" class="small" style="display:none; margin-top:0.5rem;"></div>
+        </div>
+      </div>
+    </div>
+
+    <script src="main.js"></script>
+</body>
+</html>
