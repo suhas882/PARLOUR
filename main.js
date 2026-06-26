@@ -12,7 +12,7 @@
     }
 
     // 2. Navigation Active State Highlighter
-    const currentPath = window.location.pathname.split('/').pop() || 'parlourwebsite.html';
+    const currentPath = window.location.pathname.split('/').pop() || 'index.html';
     const navLinks = document.querySelectorAll('.nav-links a');
     let hasActiveDropdownItem = false;
     navLinks.forEach(link => {
