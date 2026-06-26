@@ -752,7 +752,8 @@ footer a:hover {
     transition: transform 0.3s;
 }
 
-.nav-links li:hover .dropdown-trigger .arrow {
+.nav-links li:hover .dropdown-trigger .arrow,
+.nav-links li.open .dropdown-trigger .arrow {
     transform: rotate(180deg);
 }
 
@@ -797,8 +798,9 @@ footer a:hover {
     padding-left: 1.75rem; /* slight slide effect */
 }
 
-/* Show on hover */
-.nav-links li:hover .dropdown-menu {
+/* Show on hover or when open class is present */
+.nav-links li:hover .dropdown-menu,
+.nav-links li.open .dropdown-menu {
     display: block;
     animation: dropdownFadeIn 0.3s var(--ease-custom);
 }
@@ -813,4 +815,64 @@ footer a:hover {
         opacity: 1;
         transform: translateX(-50%) translateY(10px);
     }
+}
+
+/* Time Slot Picker CSS */
+.time-slots-container {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 100%;
+}
+
+.time-slots-label {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+.time-slots-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 0.6rem;
+    width: 100%;
+}
+
+.time-slot-btn {
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    color: var(--text-main);
+    padding: 0.75rem 0.5rem;
+    text-align: center;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: var(--font-sans);
+}
+
+.time-slot-btn:hover:not(:disabled) {
+    border-color: var(--primary);
+    background-color: var(--primary-glow);
+    color: var(--primary);
+}
+
+.time-slot-btn.selected {
+    background-color: var(--primary) !important;
+    border-color: var(--primary) !important;
+    color: var(--text-inverse) !important;
+}
+
+.time-slot-btn:disabled {
+    background-color: rgba(255, 255, 255, 0.02) !important;
+    border-color: rgba(255, 255, 255, 0.04) !important;
+    color: #4b5563 !important;
+    cursor: not-allowed;
+}
+
+.time-slot-btn.past {
+    text-decoration: line-through;
+    opacity: 0.5;
 }

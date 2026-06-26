@@ -31,6 +31,36 @@
         if (dropdownTrigger) dropdownTrigger.classList.add('active');
     }
 
+    // Dropdown toggle behavior for multi-device support
+    const dropdowns = document.querySelectorAll('.dropdown');
+    dropdowns.forEach(dropdown => {
+        const trigger = dropdown.querySelector('.dropdown-trigger');
+        if (trigger) {
+            trigger.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                // Close other dropdowns
+                dropdowns.forEach(other => {
+                    if (other !== dropdown) {
+                        other.classList.remove('open');
+                    }
+                });
+                
+                dropdown.classList.toggle('open');
+            });
+        }
+    });
+
+    // Close dropdowns when clicking outside
+    document.addEventListener('click', (e) => {
+        dropdowns.forEach(dropdown => {
+            if (!dropdown.contains(e.target)) {
+                dropdown.classList.remove('open');
+            }
+        });
+    });
+
     // 3. Scroll Reveal Animations (Intersection Observer)
     const fadeElems = document.querySelectorAll('.fade-in-up');
     if ('IntersectionObserver' in window && fadeElems.length > 0) {
@@ -125,7 +155,127 @@
         }
     }
 
-    // 5. AJAX Form Handler (Unified submission for Make.com webhook)
+    // 5. AJAX Form Handler (Unified submission for Make.com webhook + visual slot selection)
+    const allSlots = [
+        { value: '09:00', label: '9:00 AM' },
+        { value: '10:00', label: '10:00 AM' },
+        { value: '11:00', label: '11:00 AM' },
+        { value: '12:00', label: '12:00 PM' },
+        { value: '13:00', label: '1:00 PM' },
+        { value: '14:00', label: '2:00 PM' },
+        { value: '15:00', label: '3:00 PM' },
+        { value: '16:00', label: '4:00 PM' },
+        { value: '17:00', label: '5:00 PM' },
+        { value: '18:00', label: '6:00 PM' },
+        { value: '19:00', label: '7:00 PM' },
+        { value: '20:00', label: '8:00 PM' }
+    ];
+
+    // Initialize custom slot pickers on all forms containing date and time inputs
+    const formsWithSlots = document.querySelectorAll('form');
+    formsWithSlots.forEach(form => {
+        const dateInput = form.querySelector('input[type="date"]');
+        const timeInput = form.querySelector('input[type="time"]');
+        
+        if (dateInput && timeInput) {
+            // Set min date to today (local date format YYYY-MM-DD)
+            const today = new Date();
+            const year = today.getFullYear();
+            const month = String(today.getMonth() + 1).padStart(2, '0');
+            const day = String(today.getDate()).padStart(2, '0');
+            const todayStr = `${year}-${month}-${day}`;
+            dateInput.min = todayStr;
+
+            // Hide the original time input
+            timeInput.style.display = 'none';
+            timeInput.required = false;
+
+            // Create slot container
+            const container = document.createElement('div');
+            container.className = 'time-slots-container';
+            container.innerHTML = `
+                <label class="time-slots-label">Select Available Time Slot:</label>
+                <div class="time-slots-grid">
+                    <div style="grid-column: 1/-1; color: var(--text-muted); font-size: 0.85rem; padding: 0.5rem 0;">Please select a date first</div>
+                </div>
+            `;
+            
+            // Insert slot container
+            const timeParent = timeInput.parentElement;
+            if (timeParent && (timeParent.style.display === 'flex' || timeParent.classList.contains('flex'))) {
+                timeParent.parentElement.insertBefore(container, timeParent.nextSibling);
+            } else {
+                timeInput.insertAdjacentElement('afterend', container);
+            }
+
+            const grid = container.querySelector('.time-slots-grid');
+
+            // Handle date change
+            dateInput.addEventListener('change', () => {
+                const dateVal = dateInput.value;
+                if (!dateVal) {
+                    grid.innerHTML = '<div style="grid-column: 1/-1; color: var(--text-muted); font-size: 0.85rem; padding: 0.5rem 0;">Please select a date first</div>';
+                    return;
+                }
+
+                grid.innerHTML = '';
+                
+                const now = new Date();
+                const curYear = now.getFullYear();
+                const curMonth = String(now.getMonth() + 1).padStart(2, '0');
+                const curDay = String(now.getDate()).padStart(2, '0');
+                const currentTodayStr = `${curYear}-${curMonth}-${curDay}`;
+                const currentHour = now.getHours();
+                const currentMin = now.getMinutes();
+
+                let availableCount = 0;
+
+                allSlots.forEach(slot => {
+                    const btn = document.createElement('button');
+                    btn.type = 'button';
+                    btn.className = 'time-slot-btn';
+                    btn.textContent = slot.label;
+                    btn.dataset.value = slot.value;
+
+                    // Check if past (only if date is today)
+                    let isPast = false;
+                    if (dateVal === currentTodayStr) {
+                        const [slotH, slotM] = slot.value.split(':').map(Number);
+                        if (slotH < currentHour || (slotH === currentHour && slotM <= currentMin)) {
+                            isPast = true;
+                        }
+                    }
+
+                    if (isPast) {
+                        btn.disabled = true;
+                        btn.classList.add('past');
+                    } else {
+                        availableCount++;
+                        btn.addEventListener('click', () => {
+                            grid.querySelectorAll('.time-slot-btn').forEach(b => b.classList.remove('selected'));
+                            btn.classList.add('selected');
+                            timeInput.value = slot.value;
+                        });
+                    }
+
+                    grid.appendChild(btn);
+                });
+
+                if (availableCount === 0) {
+                    grid.innerHTML = '<div style="grid-column: 1/-1; color: #ef4444; font-size: 0.85rem; padding: 0.5rem 0;">No slots available for this date. Please choose another date.</div>';
+                }
+            });
+
+            // Handle form reset
+            form.addEventListener('reset', () => {
+                timeInput.value = '';
+                setTimeout(() => {
+                    grid.innerHTML = '<div style="grid-column: 1/-1; color: var(--text-muted); font-size: 0.85rem; padding: 0.5rem 0;">Please select a date first</div>';
+                }, 10);
+            });
+        }
+    });
+
     const forms = document.querySelectorAll('form');
     forms.forEach(form => {
         form.addEventListener('submit', async (e) => {
@@ -148,6 +298,8 @@
             const nameInput = form.querySelector('input[name="name"]');
             const emailInput = form.querySelector('input[name="email"]');
             const phoneInput = form.querySelector('input[name="phone"]');
+            const dateInput = form.querySelector('input[type="date"]');
+            const timeInput = form.querySelector('input[type="time"]');
 
             if (nameInput) nameInput.value = nameInput.value.trim();
             if (phoneInput) phoneInput.value = phoneInput.value.trim();
@@ -163,6 +315,14 @@
                     msgEl.textContent = 'Please enter a valid email address (e.g., yourname@example.com).';
                     return;
                 }
+            }
+
+            // Custom slot selection validation
+            if (dateInput && timeInput && !timeInput.value) {
+                msgEl.style.display = 'block';
+                msgEl.style.color = '#EF4444';
+                msgEl.textContent = 'Please select a time slot before submitting.';
+                return;
             }
             
             if (submitBtn) {
